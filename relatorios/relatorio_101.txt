@@ -1,0 +1,25 @@
+========================================
+       RELATORIO FINAL DE ENTREGA       
+========================================
+
+CLIENTE: Embrac
+DATA DE ENTREGA: 09/04/2026
+
+--- DADOS DA AERONAVE ---
+Modelo: Aerorinthians | Codigo: 101
+Tipo: COMERCIAL
+Capacidade: 12 passageiros
+Alcance: 999 km
+
+--- COMPONENTES (PECAS) ---
+Nenhuma peca registrada.
+
+--- ETAPAS DE PRODUCAO ---
+Nenhuma etapa registrada.
+
+--- RESULTADOS DE TESTES ---
+- Teste ELETRICO: APROVADO
+
+========================================
+Status: Aeronave pronta para operacao.
+========================================

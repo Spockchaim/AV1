@@ -1,0 +1,23 @@
+{
+  "name": "aerocode-sistema",
+  "version": "1.0.0",
+  "description": "Sistema de gestão da produção de aeronaves - Aerocode",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "build": "tsc",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/readline-sync": "^1.4.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
