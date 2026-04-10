@@ -97,7 +97,7 @@ function menuTestes(): void {
 
 
 function menuGerenciarFuncionarios(): void {
-    let loc = "Lat: -23.5455 Long: 46.4734"
+    let loc = "Latitude: -23.5455 Longitude: -46.4734"
     let voltar = false;
     while (!voltar) {
         console.log("\n--- GESTAO DE FUNCIONARIOS ---");
