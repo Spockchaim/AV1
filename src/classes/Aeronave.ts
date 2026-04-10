@@ -3,6 +3,13 @@ import { Peca } from "./Peca";
 import { Etapa } from "./Etapa";
 import { Teste } from "./Teste";
 
+/**
+ * Representa uma aeronave no sistema Aerocode.
+ * 
+ * @example
+ * const aeronave = new Aeronave("101", "Boeing 737", TipoAeronave.COMERCIAL, 180, 5000);
+ * aeronave.adicionarPeca(umaPeca);
+ */
 export class Aeronave {
     private codigo: string;
     private modelo: string;
@@ -80,7 +87,7 @@ export class Aeronave {
 
     
     public salvar(): void {
-        console.log(`Salvando dados da aeronave ${this.codigo} em arquivo TXT...`);
+        console.log(`Salvando dados da aeronave ${this.codigo} em arquivo JSON...`);
     }
 
     public carregar(): void {

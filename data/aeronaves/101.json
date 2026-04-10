@@ -1,0 +1,9 @@
+{
+    "codigo": "101",
+    "modelo": "Aerorinthians",
+    "tipo": "COMERCIAL",
+    "capacidade": 12,
+    "alcance": 999,
+    "cliente": "Prodc",
+    "dataEntrega": "26/02/2026"
+}

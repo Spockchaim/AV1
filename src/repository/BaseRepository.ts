@@ -17,21 +17,26 @@ export abstract class BaseRepository<T> {
     }
 
     
-    protected saveToFile(fileName: string, content: string): void {
+    protected saveToFile(fileName: string, data: T): void {
         const filePath = path.join(this.dataDir, fileName);
-        fs.writeFileSync(filePath, content, 'utf8');
+        const jsonContent = JSON.stringify(data, null, 4);
+        fs.writeFileSync(filePath, jsonContent, 'utf8');
     }
 
-    
-    protected readAllFiles(): string[] {
+
+    protected readAllFiles(): T[] {
         if (!fs.existsSync(this.dataDir)) return [];
-        const files = fs.readdirSync(this.dataDir);
-        return files.map(file => fs.readFileSync(path.join(this.dataDir, file), 'utf8'));
+        const files = fs.readdirSync(this.dataDir).filter(file => file.endsWith('.json'));
+        return files.map(file => {
+            const content = fs.readFileSync(path.join(this.dataDir, file), 'utf8');
+            return JSON.parse(content) as T;
+        });
     }
 
-    
-    protected appendToFile(fileName: string, line: string): void {
+    protected readFile(fileName: string): T | null {
         const filePath = path.join(this.dataDir, fileName);
-        fs.appendFileSync(filePath, line + '\n', 'utf8');
+        if (!fs.existsSync(filePath)) return null;
+        const content = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(content) as T;
     }
 }

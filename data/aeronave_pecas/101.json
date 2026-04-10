@@ -1,0 +1,14 @@
+[
+    {
+        "nome": "Helice",
+        "tipo": "NACIONAL",
+        "fornecedor": "Embrac",
+        "status": "EM_PRODUCAO"
+    },
+    {
+        "nome": "Turbina_Teste",
+        "tipo": "IMPORTADA",
+        "fornecedor": "TurbineCorp",
+        "status": "EM_PRODUCAO"
+    }
+]

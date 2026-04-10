@@ -12,14 +12,18 @@ export class FuncionarioService {
 
     
     private carregarDadosIniciais(): void {
-        const arquivos = this.repository.listarTodos();
-        arquivos.forEach(linha => {
-            const campos = linha.split(';');
-            if (campos.length >= 7) {
-                const [id, nome, tel, end, user, pass, nivel] = campos.map(c => c.trim());
-                const func = new Funcionario(id, nome, tel, end, user, pass, nivel as any);
-                this.funcionarios.push(func);
-            }
+        const dadosSalvos = this.repository.listarTodos();
+        dadosSalvos.forEach((dados: any) => {
+            const func = new Funcionario(
+                dados.id,
+                dados.nome,
+                dados.telefone,
+                dados.endereco,
+                dados.usuario,
+                dados.senha,
+                dados.nivelPermissao as any
+            );
+            this.funcionarios.push(func);
         });
     }
 

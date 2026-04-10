@@ -1,1 +1,0 @@
-3;Operador Padrao;222;Linha Montagem;op;op;OPERADOR

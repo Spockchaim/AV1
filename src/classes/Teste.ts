@@ -1,6 +1,12 @@
 import { TipoTeste } from "../enums/TipoTeste";
 import { ResultadoTeste } from "../enums/ResultadoTeste";
 
+/**
+ * Representa uma verificação técnica ou de segurança.
+ * 
+ * @example
+ * const teste = new Teste(TipoTeste.AERODINAMICO, ResultadoTeste.APROVADO);
+ */
 export class Teste {
     private tipo: TipoTeste;
     private resultado: ResultadoTeste;

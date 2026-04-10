@@ -1,0 +1,9 @@
+{
+    "id": "2",
+    "nome": "Engenheiro Padrao",
+    "telefone": "111",
+    "endereco": "Fabrica",
+    "usuario": "eng",
+    "senha": "eng",
+    "nivelPermissao": "ENGENHEIRO"
+}

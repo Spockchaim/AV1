@@ -1,0 +1,9 @@
+{
+    "id": "3",
+    "nome": "Operador Padrao",
+    "telefone": "222",
+    "endereco": "Linha Montagem",
+    "usuario": "op",
+    "senha": "op",
+    "nivelPermissao": "OPERADOR"
+}

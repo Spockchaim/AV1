@@ -1,1 +1,0 @@
-1;Administrador Padrao;000;Sede;adm;adm;ADMINISTRADOR

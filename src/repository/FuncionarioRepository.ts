@@ -7,12 +7,11 @@ export class FuncionarioRepository extends BaseRepository<Funcionario> {
     }
 
     public salvar(funcionario: Funcionario): void {
-        const data = `${funcionario.getId()};${funcionario.getNome()};${funcionario.getTelefone()};${funcionario.getEndereco()};${funcionario.getUsuario()};${funcionario.getSenha()};${funcionario.getNivelPermissao()}\n`;
-        this.saveToFile(`${funcionario.getId()}.txt`, data);
-        console.log(`Funcionário ${funcionario.getNome()} persistido em arquivo.`);
+        this.saveToFile(`${funcionario.getId()}.json`, funcionario);
+        console.log(`Funcionário ${funcionario.getNome()} persistido em arquivo JSON.`);
     }
 
-    public listarTodos(): string[] {
+    public listarTodos(): Funcionario[] {
         return this.readAllFiles();
     }
 }

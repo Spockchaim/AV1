@@ -1,6 +1,14 @@
 import { StatusEtapa } from "../enums/StatusEtapa";
 import { Funcionario } from "./Funcionario";
 
+/**
+ * Representa uma fase específica na produção de uma aeronave.
+ * 
+ * @example
+ * const etapa = new Etapa("Fuselagem", "15 dias");
+ * etapa.iniciar();
+ * etapa.associarFuncionario(umFuncionario);
+ */
 export class Etapa {
     private nome: string;
     private prazo: string;

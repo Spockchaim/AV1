@@ -1,0 +1,43 @@
+[
+    {
+        "nome": "Montagem Fuselagem",
+        "prazo": "20 dias",
+        "status": "CONCLUIDA",
+        "funcionarios": [
+            {
+                "id": "1",
+                "nome": "Administrador Padrao",
+                "telefone": "000",
+                "endereco": "Sede",
+                "usuario": "adm",
+                "senha": "adm",
+                "nivelPermissao": "ADMINISTRADOR"
+            }
+        ]
+    },
+    {
+        "nome": "Instalacao Eletrica",
+        "prazo": "10 dias",
+        "status": "EM_ANDAMENTO",
+        "funcionarios": [
+            {
+                "id": "3",
+                "nome": "Operador Padrao",
+                "telefone": "222",
+                "endereco": "Linha Montagem",
+                "usuario": "op",
+                "senha": "op",
+                "nivelPermissao": "OPERADOR"
+            },
+            {
+                "id": "4",
+                "nome": "Corintiosvaldo",
+                "telefone": "12 3744-2445",
+                "endereco": "Rua Corinthians",
+                "usuario": "corintiano",
+                "senha": "corintiano",
+                "nivelPermissao": "OPERADOR"
+            }
+        ]
+    }
+]

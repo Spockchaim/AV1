@@ -1,0 +1,9 @@
+{
+    "id": "1",
+    "nome": "Administrador Padrao",
+    "telefone": "000",
+    "endereco": "Sede",
+    "usuario": "adm",
+    "senha": "adm",
+    "nivelPermissao": "ADMINISTRADOR"
+}

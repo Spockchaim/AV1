@@ -2,25 +2,23 @@
        RELATORIO FINAL DE ENTREGA       
 ========================================
 
-CLIENTE: Prodc
-DATA DE ENTREGA: 26/02/2026
+CLIENTE: Cliente Teste
+DATA DE ENTREGA: 10/04/2026
 
 --- DADOS DA AERONAVE ---
-Modelo: Aerorinthians | Codigo: 101
+Modelo: TestModel | Codigo: TEST-999
 Tipo: COMERCIAL
-Capacidade: 12 passageiros
-Alcance: 999 km
+Capacidade: 150 passageiros
+Alcance: 5000 km
 
 --- COMPONENTES (PECAS) ---
-- Helice (NACIONAL) | Fornecedor: Embrac
-- Turbina_Teste (IMPORTADA) | Fornecedor: TurbineCorp
+- Turbina Teste (IMPORTADA) | Fornecedor: TurbineCorp
 
 --- ETAPAS DE PRODUCAO ---
-- Montagem Fuselagem | Status: CONCLUIDA
-- Instalacao Eletrica | Status: EM_ANDAMENTO
+- Montagem Asas | Status: CONCLUIDA
 
 --- RESULTADOS DE TESTES ---
-- Teste ELETRICO: APROVADO
+- Teste AERODINAMICO: APROVADO
 
 ========================================
 Status: Aeronave pronta para operacao.

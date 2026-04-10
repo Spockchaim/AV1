@@ -1,5 +1,11 @@
 import { NivelPermissao } from "../enums/NivelPermissao";
 
+/**
+ * Representa um profissional da linha de montagem ou gestão.
+ * 
+ * @example
+ * const func = new Funcionario("001", "Pedro Chaim", "12999-000", "SJC", "pedro", "senha123", NivelPermissao.ENGENHEIRO);
+ */
 export class Funcionario {
     private id: string;
     private nome: string;

@@ -30,7 +30,8 @@ export class Relatorio {
             conteudo += `Nenhuma etapa registrada.\n`;
         } else {
             aeronave.getEtapas().forEach(etapa => {
-                conteudo += `- ${etapa.getNome()} | Status: ${etapa.getStatus()}\n`;
+                const responsaveis = etapa.listarFuncionarios().map(f => f.getNome()).join(', ') || 'Nao definido';
+                conteudo += `- ${etapa.getNome()} | Status: ${etapa.getStatus()} | Resp: ${responsaveis}\n`;
             });
         }
 

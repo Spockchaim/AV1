@@ -12,14 +12,15 @@ export class PecaService {
 
     
     private carregarDadosIniciais(): void {
-        const arquivos = this.repository.listarTodos();
-        arquivos.forEach(linha => {
-            const campos = linha.split(';');
-            if (campos.length >= 4) {
-                const [nome, tipo, fornecedor, status] = campos;
-                const peca = new Peca(nome, tipo as any, fornecedor, status as any);
-                this.pecas.push(peca);
-            }
+        const dadosSalvos = this.repository.listarTodos();
+        dadosSalvos.forEach((dados: any) => {
+            const peca = new Peca(
+                dados.nome,
+                dados.tipo as any,
+                dados.fornecedor,
+                dados.status as any
+            );
+            this.pecas.push(peca);
         });
     }
 

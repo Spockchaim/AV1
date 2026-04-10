@@ -183,7 +183,8 @@ function menuProducao(): void {
                 if (aeronave) {
                     console.log(`\nEtapas da Aeronave ${codAeroList}:`);
                     aeronave.getEtapas().forEach(e => {
-                        console.log(`- ${e.getNome()} | Status: ${e.getStatus()} | Prazo: ${e.getPrazo()}`);
+                        const nomesFuncs = e.listarFuncionarios().map(f => f.getNome()).join(', ') || 'Nenhum';
+                        console.log(`- ${e.getNome()} | Status: ${e.getStatus()} | Prazo: ${e.getPrazo()} | Resp: ${nomesFuncs}`);
                     });
                 } else {
                     console.log("\nAeronave nao encontrada.");

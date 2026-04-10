@@ -7,12 +7,20 @@ export class AeronaveRepository extends BaseRepository<Aeronave> {
     }
 
     public salvar(aeronave: Aeronave): void {
-        const data = `${aeronave.getCodigo()};${aeronave.getModelo()};${aeronave.getTipo()};${aeronave.getCapacidade()};${aeronave.getAlcance()};${aeronave.getCliente()};${aeronave.getDataEntrega()}\n`;
-        this.saveToFile(`${aeronave.getCodigo()}.txt`, data);
-        console.log(`Aeronave ${aeronave.getCodigo()} persistida em arquivo.`);
+        const dadosSimples = {
+            codigo: aeronave.getCodigo(),
+            modelo: aeronave.getModelo(),
+            tipo: aeronave.getTipo(),
+            capacidade: aeronave.getCapacidade(),
+            alcance: aeronave.getAlcance(),
+            cliente: aeronave.getCliente(),
+            dataEntrega: aeronave.getDataEntrega()
+        };
+        this.saveToFile(`${aeronave.getCodigo()}.json`, dadosSimples as any);
+        console.log(`Dados da aeronave ${aeronave.getCodigo()} persistidos em arquivo JSON.`);
     }
 
-    public listarTodos(): string[] {
+    public listarTodos(): Aeronave[] {
         return this.readAllFiles();
     }
 }

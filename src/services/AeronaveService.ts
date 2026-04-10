@@ -34,79 +34,59 @@ export class AeronaveService {
     }
 
     private carregarFuncionarios(): void {
-        const arquivos = this.funcRepo.listarTodos();
-        arquivos.forEach(linha => {
-            const campos = linha.split(';');
-            if (campos.length >= 7) {
-                const [id, nome, telefone, endereco, usuario, senha, nivel] = campos.map(c => c.trim());
-                this.funcionarios.set(id, new Funcionario(id, nome, telefone, endereco, usuario, senha, nivel as any));
-            }
+        const dados = this.funcRepo.listarTodos();
+        dados.forEach((d: any) => {
+            const f = new Funcionario(d.id, d.nome, d.telefone, d.endereco, d.usuario, d.senha, d.nivelPermissao);
+            this.funcionarios.set(f.getId(), f);
         });
     }
 
     
     private carregarDadosIniciais(): void {
-        const arquivos = this.repository.listarTodos();
-        arquivos.forEach(linha => {
-            const campos = linha.split(';');
-            if (campos.length >= 7) {
-                const [codigo, modelo, tipo, capacidade, alcance, cliente, dataEntrega] = campos.map(c => c.trim());
-                const aeronave = new Aeronave(
-                    codigo, 
-                    modelo, 
-                    tipo as TipoAeronave, 
-                    Number(capacidade), 
-                    Number(alcance),
-                    cliente,
-                    dataEntrega
-                );
+        const dadosSalvos = this.repository.listarTodos();
+        dadosSalvos.forEach((dados: any) => {
+            const aeronave = new Aeronave(
+                dados.codigo,
+                dados.modelo,
+                dados.tipo as TipoAeronave,
+                Number(dados.capacidade),
+                Number(dados.alcance),
+                dados.cliente,
+                dados.dataEntrega
+            );
 
-                
-                const etapasSalvas = this.etapaRepo.listarPorAeronave(codigo);
-                etapasSalvas.forEach(eLinha => {
-                    const eCampos = eLinha.split(';');
-                    if (eCampos.length >= 4) {
-                        const [_, nome, prazo, status, funcStr] = eCampos;
-                        const etapa = new Etapa(nome, prazo, status as any);
-                        if (funcStr && funcStr.startsWith('[') && funcStr.endsWith(']')) {
-                            const ids = funcStr.slice(1, -1).split(',').filter(id => id.length > 0);
-                            ids.forEach(id => {
-                                const f = this.funcionarios.get(id);
-                                if (f) etapa.associarFuncionario(f);
-                            });
-                        }
-                        aeronave.adicionarEtapa(etapa);
-                    }
-                });
+            
+            const etapas = this.etapaRepo.listarPorAeronave(aeronave.getCodigo());
+            etapas.forEach((e: any) => {
+                const etapa = new Etapa(e.nome, e.prazo, e.status as any);
+                if (e.funcionarios && Array.isArray(e.funcionarios)) {
+                    e.funcionarios.forEach((r: any) => {
+                        const f = this.funcionarios.get(r.id);
+                        if (f) etapa.associarFuncionario(f);
+                    });
+                }
+                aeronave.adicionarEtapa(etapa);
+            });
 
-                
-                const testesSalvos = this.testeRepo.listarPorAeronave(codigo);
-                testesSalvos.forEach(tLinha => {
-                    const tCampos = tLinha.split(';');
-                    if (tCampos.length >= 3 && tCampos[0] === codigo) {
-                        const [_, tipoT, res] = tCampos;
-                        aeronave.adicionarTeste(new Teste(tipoT as any, res as any));
-                    }
-                });
+            
+            const testes = this.testeRepo.listarPorAeronave(aeronave.getCodigo());
+            testes.forEach((t: any) => {
+                aeronave.adicionarTeste(new Teste(t.tipo, t.resultado));
+            });
 
-                
-                const pecasSalvas = this.pecaAeronaveRepo.listarPorAeronave(codigo);
-                pecasSalvas.forEach(pLinha => {
-                    const pCampos = pLinha.split(';');
-                    if (pCampos.length >= 5 && pCampos[0] === codigo) {
-                        const [_, nomeP, tipoP, fornecedor, statusP] = pCampos;
-                        aeronave.adicionarPeca(new Peca(nomeP, tipoP as any, fornecedor, statusP as any));
-                    }
-                });
+            
+            const pecas = this.pecaAeronaveRepo.listarPorAeronave(aeronave.getCodigo());
+            pecas.forEach((p: any) => {
+                aeronave.adicionarPeca(new Peca(p.nome, p.tipo, p.fornecedor, p.status));
+            });
 
-                this.aeronaves.push(aeronave);
-            }
+            this.aeronaves.push(aeronave);
         });
     }
 
     
     public cadastrarAeronave(aeronave: Aeronave): void {
-        const filePath = path.join(__dirname, '../../data/aeronaves', `${aeronave.getCodigo()}.txt`);
+        const filePath = path.join(__dirname, '../../data/aeronaves', `${aeronave.getCodigo()}.json`);
         
         if (fs.existsSync(filePath)) {
             console.log(`Erro: Já existe uma aeronave com o código ${aeronave.getCodigo()} no sistema.`);
@@ -174,6 +154,7 @@ export class AeronaveService {
         const aeronave = this.buscarPorCodigo(codigoAeronave);
         if (aeronave) {
             aeronave.adicionarTeste(teste);
+            this.testeRepo.salvarTodos(aeronave.getTestes(), codigoAeronave);
             console.log(`Teste ${teste.getTipo()} registrado para a aeronave ${codigoAeronave}.`);
         }
     }

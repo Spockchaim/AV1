@@ -1,86 +1,66 @@
 # Aerocode - Sistema de Gestão de Produção de Aeronaves - AV1 
 
-Este projeto foi desenvolvido como parte da Atividade de Avaliação Individual 1 (AV1) da disciplina de Técnicas de Programação. O **Aerocode** é um sistema CLI (Command Line Interface) robusto, projetado para gerenciar todo o ciclo de vida da fabricação de aeronaves, desde o cadastro inicial até a entrega final ao cliente.
+Este projeto foi desenvolvido como parte da Atividade de Avaliação Individual 1 (AV1) da disciplina de Técnicas de Programação na **FATEC SJC**. O **Aerocode** é um sistema CLI (Command Line Interface) robusto em TypeScript, projetado para gerenciar o ciclo de vida da fabricação de aeronaves.
 
 ## 🚀 Funcionalidades Principais
 
-*   **Controle de Acesso:** Sistema de autenticação com três níveis de permissão: `ADMINISTRADOR`, `ENGENHEIRO` e `OPERADOR`.
-*   **Gestão de Aeronaves:** Cadastro completo de modelos comerciais e militares, com especificações de alcance e capacidade.
-*   **Inventário de Peças:** Cadastro e vínculo de componentes nacionais e importados a aeronaves específicas.
-*   **Fluxo de Produção:** Gerenciamento de etapas (fuselagem, montagem, pintura) com trava lógica (não permite avançar sem concluir a etapa anterior).
-*   **Gestão de Mão de Obra:** Associação de funcionários responsáveis a cada etapa da produção.
-*   **Controle de Qualidade:** Registro de testes elétricos, hidráulicos e aerodinâmicos.
-*   **Relatórios Finais:** Geração automática de documentos de entrega (TXT) consolidando todas as peças, etapas, testes e dados do cliente.
-*   **Persistência de Dados:** Todos os dados são salvos em arquivos `.txt` (ASCII), garantindo a persistência mesmo após o encerramento do sistema.
+*   **Controle de Acesso:** Autenticação com níveis `ADMINISTRADOR`, `ENGENHEIRO` e `OPERADOR`.
+*   **Gestão de Aeronaves:** Cadastro de modelos comerciais e militares.
+*   **Inventário de Peças:** Controle de componentes nacionais e importados vinculados a aeronaves.
+*   **Fluxo de Produção:** Gerenciamento de etapas com trava lógica (impede iniciar nova etapa sem concluir a anterior).
+*   **Qualidade:** Registro de testes elétricos, hidráulicos e aerodinâmicos.
+*   **Persistência JSON:** Armazenamento moderno em arquivos `.json` organizados por categorias.
 
 ---
 
-## 🏗️ Estrutura do Projeto
+## 🏗️ Arquitetura e Estrutura
 
-O projeto segue uma arquitetura modular em TypeScript:
+O projeto utiliza padrões de projeto modernos (**Service/Repository**) e Programação Orientada a Objetos (POO):
 
-*   `src/classes`: Modelos de domínio (Aeronave, Peca, Etapa, Funcionario, etc.).
-*   `src/enums`: Padronização de tipos e status (TipoAeronave, StatusEtapa, etc.).
-*   `src/repository`: Camada de persistência responsável pelo I/O de arquivos.
-*   `src/services`: Lógica de negócios e orquestração do sistema.
-*   `data/`: Banco de dados em arquivos de texto.
-*   `relatorios/`: Documentos finais de entrega exportados.
-
----
-
-## 📋 Pré-requisitos
-
-Antes de começar, você precisará ter instalado em sua máquina:
-*   [Node.js](https://nodejs.org/) (versão 16 ou superior)
-*   [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+*   `src/classes`: Modelos de domínio (Aeronave, Peca, Etapa, etc.) com documentação JSDoc.
+*   `src/repository`: Camada de persistência genérica utilizando **Generics** e JSON.
+*   `src/services`: Lógica de negócios e orquestração.
+*   `data/`: Banco de dados local organizado em subdiretórios:
+    *   `aeronaves/`: Dados básicos das aeronaves.
+    *   `etapas/`: Histórico de produção por aeronave.
+    *   `testes/`: Resultados de qualidade por aeronave.
+    *   `aeronave_pecas/`: Componentes vinculados a cada projeto.
+    *   `funcionarios/` e `pecas/`: Cadastros gerais do sistema.
 
 ---
 
 ## 🔧 Instalação e Execução
 
 1.  **Instalar dependências:**
-    No diretório raiz do projeto, execute:
     ```bash
     npm install
     ```
 
-2.  **Compilar e Rodar o Sistema:**
-    Para iniciar o CLI diretamente via `ts-node`:
+2.  **Executar o Sistema:**
     ```bash
     npm run start
     ```
 
-3.  **Compilação Manual (Opcional):**
-    Para gerar o código JavaScript na pasta `dist`:
-    ```bash
-    npx tsc
-    node dist/index.js
-    ```
+---
+
+## 🔐 Credenciais de Acesso (Exemplos)
+
+| Usuário | Senha | Nível |
+| :--- | :--- | :--- |
+| `adm` | `adm` | Administrador |
+| `eng` | `eng` | Engenheiro |
+| `op` | `op` | Operador |
 
 ---
 
-## 🔐 Acesso e Níveis de Permissão
+## 🛠️ Decisões Técnicas (Diferenciais)
 
-O sistema utiliza controle de acesso baseado em papéis para garantir a segurança e a integridade do fluxo de produção.
-
-| Papel | Descrição | Permissões | Login Exemplo |
-| :--- | :--- | :--- | :--- |
-| **Administrador** | Gestor total do sistema. | Acesso a todas as funções, incluindo a **Gestão de Funcionários** e controle técnico total. | `adm` / `adm` |
-| **Engenheiro** | Responsável técnico pela aeronave. | Pode gerenciar aeronaves, peças, registrar testes de qualidade e gerar relatórios finais. | `eng` / `eng` |
-| **Operador** | Responsável pela execução na linha de montagem. | Focado estritamente na **Produção e Etapas**, permitindo iniciar, finalizar e se vincular a tarefas. | `op` / `op` |
-
-*Nota: Se a base de dados estiver vazia, utilize `admin` / `admin` para o primeiro acesso.*
+*   **Persistência Separada:** Para garantir performance e organização, os dados de produção (etapas/testes) são salvos em arquivos separados do cadastro básico da aeronave, simulando um banco de dados relacional.
+*   **TypeScript Avançado:** Uso de **Generics** no `BaseRepository` para reaproveitamento de código de I/O.
+*   **Documentação:** Classes documentadas com `@example` para facilitar a manutenção e entendimento do fluxo.
 
 ---
-
-## ⚖️ Regras de Negócio Importantes
-
-1.  **Sequência de Etapas:** Uma aeronave só pode ter uma nova etapa iniciada se a anterior estiver com o status `CONCLUIDA`.
-2.  **Vínculo de Peças:** Peças cadastradas no estoque geral podem ser vinculadas a aeronaves específicas para compor sua montagem.
-3.  **Geração de Relatório:** O relatório final só deve ser gerado após a conclusão de todas as etapas e aprovação nos testes de qualidade.
-
----
-**Professor:**  Gerson Penha
-**Disciplina:** Técnicas de Programação
-**Aluno:** Pedro Chaim
-**Instituição:** FATEC
+**Professor:** Gerson Penha  
+**Disciplina:** Técnicas de Programação  
+**Aluno:** Pedro Chaim  
+**Instituição:** FATEC SJC

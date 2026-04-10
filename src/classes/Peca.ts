@@ -1,6 +1,12 @@
 import { TipoPeca } from "../enums/TipoPeca";
 import { StatusPeca } from "../enums/StatusPeca";
 
+/**
+ * Representa um componente físico de uma aeronave.
+ * 
+ * @example
+ * const peca = new Peca("Motor GE", TipoPeca.IMPORTADA, "GE Aviation", StatusPeca.EM_PRODUCAO);
+ */
 export class Peca {
     private nome: string;
     private tipo: TipoPeca;
